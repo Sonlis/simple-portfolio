@@ -1,0 +1,65 @@
+<script>
+	import { onMount } from "svelte";
+	export let poems = new Array(10).fill(0).map(() => {
+	  return {
+		lines: ["lorem ipsum", "dolor sit", "another line"],
+		tokens: ["leaf", "tree", "feather"],
+	  };
+	});
+	let y;
+	let scrollBind;
+	onMount(async () => {
+	  scrollBind.addEventListener("scroll", (event) => {
+		console.log(y);
+	  });
+	});
+  </script>
+  
+  <style>
+	.container {
+	  position: absolute;
+	  overflow-y: scroll;
+	  background: rgba(0, 0, 0, 0.5);
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  /* height: 100vh; */
+	}
+	.scroller {
+	  position: relative;
+	  height: 100vh;
+	  overflow: scroll;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: flex-start;
+	  align-items: center;
+	}
+	.card {
+	  width: 400px;
+	  height: 200px;
+	  background: red;
+	  border-radius: 5px;
+	  margin-top: 20px;
+	}
+	.card:first-child {
+	  margin-top: 0;
+	}
+	.poems-container {
+	  margin-top: 40px;
+	  margin-bottom: 40px;
+	}
+  </style>
+  
+  <svelte:window bind:scrollY={y} />
+  
+  <div class="container">
+	<div class="scroller" on:scroll={(e) => console.log(e.target.scrollTop)}>
+	  <div class="poems-container" bind:this={scrollBind}>
+		{#each poems as poem}
+		  <div class="card">
+			<!-- stuff -->
+		  </div>
+		{/each}
+	  </div>
+	</div>
+  </div>
